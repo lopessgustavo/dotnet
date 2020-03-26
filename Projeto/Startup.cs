@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Projeto.Data;
+using Projeto.Models;
 
 namespace Projeto
 {
@@ -39,14 +40,16 @@ namespace Projeto
             services.AddDbContext<ProjetoContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("ProjetoContext"),
                     builder => builder.MigrationsAssembly("Projeto")));
+            services.AddScoped<SeedingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingsService)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                seedingsService.Seed();
             }
             else
             {

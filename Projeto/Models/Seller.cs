@@ -19,7 +19,7 @@ namespace Projeto.Models
         {
         }
 
-        public Seller(int id, string name, string email, double baseSalary, DateTime birthdate, Department department)
+        public Seller(int id, string name, string email, DateTime birthdate, double baseSalary, Department department)
         {
             Id = id;
             Name = name;
